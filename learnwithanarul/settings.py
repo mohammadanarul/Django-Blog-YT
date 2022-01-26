@@ -9,7 +9,9 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
+# heroku database configaration
+import django_heroku
+import dj_database_url
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +27,7 @@ SECRET_KEY = 'djandfggo-insecure-ybt%fdg!gz#fgd@p)g48vn15ittwmz8qk-j7=3u!f+5i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['https://django-blog-pro.herokuapp.com/','*']
 
 
 # Application definition
@@ -133,10 +135,6 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-# heroku database configaration
-import django_heroku
-import dj_database_url
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
