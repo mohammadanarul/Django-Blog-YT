@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block head_title %}{{ object.title }}{% endblock head_title %}
+
+{% block content %}
+<!-- main section -->
+<section class="text-gray-600 body-font">
+    <div class="container px-5 py-6 mx-auto">
+        <div class="p-5">
+            <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+                <img class="w-full object-cover object-center" src="{{ object.thumnail.url }}" alt="blog">
+                <div class="p-6">
+                    <h2 class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">CATEGORY</h2>
+                    <h1 class="title-font text-lg font-medium text-gray-900 mb-3">
+                        {{ object.title }}
+                    </h1>
+                    <p class="leading-relaxed mb-3">
+                        {{ object.description }}
+                    </p>
+                    <div class="flex items-center flex-wrap pt-2">
+                        <a class="text-indigo-500 inline-flex items-center md:mb-2 lg:mb-0">
+                            <img src="{{ object.user.avatar.url }}" class="w-10 h-10 rounded-full">
+                            <span class="border-l-2 border-gray-300 ml-2 pl-2">{{ object.user }}</span>
+                        </a>
+                        <span
+                            class="text-gray-400 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-200">
+                            <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                            {{ object.view_count|default:'0' }}
+                        </span>
+                        <span class="text-gray-400 inline-flex items-center leading-none text-sm">
+                            <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                                <path
+                                    d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z">
+                                </path>
+                            </svg>
+                            {{ object.comment_counter }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- comment section -->
+            <div class="py-8">
+                <h1 class="text-2xl text-gray-900 font-medium">Comment list</h1>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="p-2 w-full">
+                        <div class="relative">
+                            <label for="message" class="leading-7 text-sm text-gray-600">Comment</label>
+                            {{ form.comment_text }}
+                              <!-- <textarea id="message" name="message" placeholder="Comment here" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-purple-500 focus:bg-white focus:ring-2 focus:ring-purple-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea> -->
+                        </div>
+                    </div>
+                    <button type="submit" class="bg-indigo-500 px-6 py-2 text-white rounded">comment</button>
+                </form>
+
+                <div class="divide-y didive-purple-500">
+                    <!-- <div class="py-4">
+                            <div class="flex items-center">
+                                <span class="text-base font-bold">mohammadanarul</span>
+                                <span class="ml-3 text-xs">3 hours</span>
+                            </div>
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corporis ad quidem numquam fuga
+                                voluptates labore sunt omnis suscipit dolores. Ea suscipit sequi tenetur ex, officia enim
+                                reiciendis voluptate! Eius velit accusamus iure illum, iusto quae hic dolor voluptates esse
+                                similique harum nobis mollitia, culpa cum provident id quos aut praesentium odio. Dicta
+                                sequi dolorum mollitia suscipit architecto ea temporibus quasi atque voluptates repellat
+                                porro distinctio dolore delectus ipsa nesciunt ducimus ratione, quas similique, error harum
+                                veritatis? Ducimus omnis, non minus ab officiis dolor culpa, ullam nisi deserunt modi eaque
+                                voluptas quam blanditiis impedit. Molestiae aperiam doloribus, possimus quae quod accusamus?
+                            </p>
+                            <div class="mt-4">
+                                <a href="#" class="py-3 px-8 bg-purple-500 text-white rounded-md">
+                                    reply
+                                </a>
+                            </div>
+                            <div class="px-10 py-8 divide-y didive-purple-500">
+                                <div class="py-4">
+                                    <div class="flex items-center">
+                                        <span class="text-base font-bold">mohammadanarul</span>
+                                        <span class="ml-3 text-xs">3 hours</span>
+                                    </div>
+                                    <p>
+                                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corporis ad quidem numquam fuga
+                                        voluptates labore sunt omnis suscipit dolores. Ea suscipit sequi tenetur ex, officia enim
+                                        reiciendis voluptate! Eius velit accusamus iure illum, iusto quae hic dolor voluptates esse
+                                        similique harum nobis mollitia, culpa cum provident id quos aut praesentium odio. Dicta
+                                        sequi dolorum mollitia suscipit architecto ea temporibus quasi atque voluptates repellat
+                                        porro distinctio dolore delectus ipsa nesciunt ducimus ratione, quas similique, error harum
+                                        veritatis? Ducimus omnis, non minus ab officiis dolor culpa, ullam nisi deserunt modi eaque
+                                        voluptas quam blanditiis impedit. Molestiae aperiam doloribus, possimus quae quod accusamus?
+                                    </p>
+                                    <div class="mt-4">
+                                        <a href="#" class="py-3 px-8 bg-purple-500 text-white rounded-md">
+                                            reply
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                    
+                    {% for comment in object.comments.all %}
+                        <div class="py-4">
+                            <div class="flex items-center">
+                                <span class="text-base font-bold">{{ comment.user }}</span>
+                                <span class="ml-3 text-xs">{{ comment.created_at|naturaltime }}</span>
+                            </div>
+                            <p>
+                                {{ comment.comment_text }}
+                            </p>
+                        </div>
+                    {% endfor %}
+                        
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end main section -->
+{% endblock content %}

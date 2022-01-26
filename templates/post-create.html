@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head_title %} Post Create View{% endblock head_title %}
+
+{% block content %}
+        <div class="container">
+            <div class="max-w-xl mx-auto py-20">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form }}
+                    <button type="submit" class="bg-purple-500 text-white py-3 px-8 rounded-md mt-5">Post</button>
+                </form>
+            </div>
+        </div>
+{% endblock content %}
